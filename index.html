@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klikk-teller</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #click-container {
+            text-align: center;
+        }
+        #icon {
+            font-size: 100px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.1s;
+        }
+        #icon:active {
+            transform: scale(0.9);
+        }
+        #counter {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="click-container">
+        <div id="icon">👍</div>
+        <div id="counter">Antall klikk: 0</div>
+    </div>
+
+    <script>
+        // Hent antall klikk fra localStorage, eller start på 0
+        let clicks = localStorage.getItem('clickCount') ? parseInt(localStorage.getItem('clickCount')) : 0;
+
+        const icon = document.getElementById('icon');
+        const counter = document.getElementById('counter');
+
+        // Oppdater visning
+        function updateCounter() {
+            counter.textContent = `Antall klikk: ${clicks}`;
+        }
+
+        updateCounter();
+
+        // Når ikonet klikkes
+        icon.addEventListener('click', () => {
+            clicks++;
+            localStorage.setItem('clickCount', clicks);
+            updateCounter();
+        });
+    </script>
+</body>
+</html>
